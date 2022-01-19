@@ -1,11 +1,10 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
-import React from 'react';
-import Playlist from './Playlist';
-import Searchbar from './Searchbar';
-import SearchResults from './SearchResults';
-import Spotify from './Spotify';
+import Playlist from '../PlayList/PlayList';
+import Searchbar from '../SearchBar/SearchBar';
+import SearchResults from '../SearchResults/SearchResults';
+import Spotify from '../util/Spotify';
 
 class App extends React.Component {
 constructor(props) {
@@ -26,18 +25,15 @@ constructor(props) {
   this.dothese = this.dothese.bind(this);
 }
 search(term){
-  Spotify.search(term).then(SearchResults=>
-    this.setState({
-      SearchResults:SearchResults
-    })
-  );
+  Spotify.search(term).then(SearchResults=>{
+    this.setState({SearchResults:SearchResults})
+  });
 }
 addtrack(track){
 let tracks = this.state.PlaylistTracks;
-if(tracks.find(savedtrack.id === track.id)){
+if(tracks.find(savedTrack => savedTrack.id === track.id)){
   return;
 }
-else
   tracks.push(track)
   this.setState({
     PlaylistTracks:tracks
@@ -50,7 +46,7 @@ removetrack(track)
   tracks = tracks.filter(currenttrack => currenttrack.id!==track.id)
   trackSearch.unshift(track)
   this.setState({
-    Playlist:tracks
+    PlaylistTracks:tracks
   })
 }
 removetracksearch(track){
@@ -69,34 +65,29 @@ removetracksearch(track){
       updateplaylistname : name
     })
   }
-  saveplaylist(){
-    const trackerUris=this.state.PlaylistTracks.map(track => trackerUris)
-    Spotify.saveplaylist(this.playlistname,trackerUris).then(()=>
-    this.setState({
-      updateplaylistname:"New list",
-      PlaylistTracks:[]
-    })
+  savePlaylist(){
+    const trackeUris=this.state.PlaylistTracks.map(track => track.uri)
+    Spotify.savePlaylist(this.state.playlistName,trackeUris).then(()=>{
+      this.setState({
+        updatePlaylistName:"New list",
+        PlaylistTracks:[]
+      })
+    }
     )
   }
 
-  render() {
-    return <div></div>;
-  }
 }
 
 
-function App() {
+function aspp() {
   return (
     <div>
-    <h1>
-      <a href="https://localhost:3000">MusicApp</a>
-      
-    </h1>
+    <h1><a href="https://localhost:3000">MusicApp</a></h1>
     <div className='App'>
      <Searchbar onScearch={this.search}/>
      <div className='App-playlist'>
-       <SearchResults searchResults={this.state.searchResults} onadd={this.dothese}/>
-       <Playlist PlaylistTracks = {this.state.PlaylistTracks} onNamechange ={this.updateplaylistname} onRemove={this.removetrack} onSave={this.saveplaylist}/>
+       <SearchResults searchResults={this.state.searchResults} onAdd={this.dothese}/>
+       <Playlist PlaylistTracks = {this.state.PlaylistTracks} onNamechange ={this.updateplaylistname} onRemove={this.removetrack} onSave={this.savePlaylist}/>
 
      </div>
     </div>

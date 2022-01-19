@@ -12,10 +12,10 @@ class SearchBar extends React.Component{
         this.handleEnter = this.handleEnter.bind(this)
     }
     handleTermChange(event){
-        this.setState(term.event.target.value)
+        this.setState({term:event.target.value})
     }
     search(){
-        this.props.search(this.state.term)
+        this.props.onSearch(this.state.term)
     }
     handleEnter(event){
         if(event.keycode===13){

@@ -7,8 +7,8 @@ class Track extends React.Component{
         this.state = {
              term :""
         }
-        this.addtrack = this.addtrack.bind(this)
-        this.removetrack = this.removetrack.bind(this)
+        this.addTrack = this.addTrack.bind(this)
+        this.removeTrack = this.removeTrack.bind(this)
         
     }
     addtrack(event){
@@ -20,11 +20,11 @@ class Track extends React.Component{
     renderAction(){
         if(this.track.isRemoval){
             return(
-                <button className="Track_action" onClick={this.removetrack}>-</button>
+                <button className="Track_action" onClick={this.removeTrack}>-</button>
             )
         }
         return(
-            <button className="Track_action" onClick={this.addtrack}>+</button>
+            <button className="Track_action" onClick={this.addTrack}>+</button>
         )
     }
     
@@ -42,6 +42,10 @@ class Track extends React.Component{
                  height="80"
                  width="300"
                  frameborder="0"
+                 allowTransparency="true"
+                 allow="encrypted_media"
+                 title="preview"
+
                  />
                  <div>
                     {this.renderAction()}
@@ -51,4 +55,4 @@ class Track extends React.Component{
         )
     }
 }
-export default SearchBar;
+export default Track;
